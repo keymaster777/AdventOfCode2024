@@ -4,13 +4,13 @@ scanned = text.scan(/mul\(\d\d*,\d\d*\)|do\(\)|don\'t\(\)/)
 def process_scanned(instructions)
   enabled = true
   instructions.inject(0) do |result, ele|
-    enabled = (ele == "do()") if ["do()", "don't()"].include?(ele)
-    
-    if enabled && ele.include?("mul")
-      result + ele.scan(/\d\d*/).map(&:to_i).inject(:*)
-    else
-      result 
-    end
+    if ["do()", "don't()"].include?(ele)
+      enabled = (ele == "do()")
+      next result
+    end 
+
+    next result + ele.scan(/\d\d*/).map(&:to_i).inject(:*) if enabled
+    result 
   end
 end
 
