@@ -15,4 +15,5 @@ def process_scanned(instructions)
 end
 
 result = process_scanned(scanned)
+
 p result
