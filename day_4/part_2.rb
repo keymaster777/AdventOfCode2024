@@ -3,23 +3,22 @@ $match_count = 0
 
 
 def look_for_match_at(x,y)
-  match = true
   [[-1,-1], [1,-1]].each do |corner|
     offset_coords = [x+corner[0], y+corner[1]]
     char_options = ["M","S"]
-    match = false if offset_coords.min < 0 #Dont wrap when looking for matches
+
+    return if offset_coords.min < 0 
     check_char = $lines&.[](offset_coords[1])&.[](offset_coords[0])
-    if char_options.include?(check_char)
-      char_options -= [check_char]
-      offset_coords = [x+(corner[0]*-1), y+(corner[1]*-1)]
-      match = false if offset_coords.min < 0 #Dont wrap when looking for matches
-      check_char = $lines&.[](offset_coords[1])&.[](offset_coords[0])  
-      match = false unless char_options.include?(check_char)
-    else
-      match = false
-    end
+    return unless char_options.include?(check_char)
+
+    offset_coords = [x+(corner[0]*-1), y+(corner[1]*-1)]
+    char_options -= [check_char]
+
+    return  if offset_coords.min < 0 
+    check_char = $lines&.[](offset_coords[1])&.[](offset_coords[0])  
+    return unless char_options.include?(check_char)
   end
-  $match_count += 1 if match
+  $match_count += 1
 end
 
 
