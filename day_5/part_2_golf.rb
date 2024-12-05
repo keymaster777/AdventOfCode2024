@@ -1,0 +1,1 @@
+l=File.readlines("i.t");s=l.index("\n");r,u,s=l[0..s],l[s+1..-1].map{|e|e.chop.split(",")},0;u.each{|p|c=0;(d=c;r.map{|l|a,b=l.chop.split("|").map{|e|p.index(e)};p[a],p[b],c=p[b],p[a],c+1 if a&&b&&a>b};break if d==c)while 1;next if c==0;s+=p[p.size/2].to_i};p s
